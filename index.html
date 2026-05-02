@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexa - Planes cerca de ti</title>
+  <link rel="stylesheet" href="css/app.css?v=5" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <button class="brand" type="button" data-action="home" aria-label="Ir al inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+            <path d="M10 18l14-8 14 8" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+            <path d="M10 24l14 8 14-8" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+            <path d="M24 10v28" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Nexa</span>
+      </button>
+      <button class="icon-btn" type="button" data-action="notifications" aria-label="Notificaciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <p class="eyebrow" id="userGreeting">Hola, Usuario</p>
+        <h1>Encuentra tu pr&oacute;ximo plan</h1>
+      </div>
+      <button class="avatar" type="button" data-action="profile" id="userAvatar" aria-label="Ver perfil">U</button>
+    </section>
+
+    <label class="search-box" for="searchInput">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="searchInput" type="search" placeholder="Buscar planes, lugares o categor&iacute;as" autocomplete="off" />
+    </label>
+
+    <section class="recommended" aria-labelledby="recommendedTitle" data-section="home">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Plan recomendado</p>
+          <h2 id="recommendedTitle">Para salir sin presi&oacute;n</h2>
+        </div>
+        <span class="match-pill">92% match</span>
+      </div>
+
+      <article class="hero-plan" data-plan-card data-category="Naturaleza" data-title="Picnic y recreatividad en bosque popular el prado Bosque Popular El Prado Manizales">
+        <div class="hero-media">
+          <span class="media-chip">Bosque Popular El Prado</span>
+        </div>
+        <div class="hero-content">
+          <div>
+            <h3>Picnic y recreatividad en bosque popular el prado</h3>
+            <p>Un encuentro tranquilo al aire libre para conversar, leer y compartir snacks.</p>
+          </div>
+          <div class="plan-meta">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Manizales
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+              Hoy, 3:30 PM
+            </span>
+          </div>
+          <button class="join-btn" id="heroJoinBtn" type="button" data-plan-action="Picnic y recreatividad en bosque popular el prado">Unirse</button>
+        </div>
+      </article>
+    </section>
+
+    <section aria-labelledby="categoriesTitle" data-section="explore">
+      <div class="section-heading compact">
+        <h2 id="categoriesTitle">Categor&iacute;as</h2>
+      </div>
+      <div class="category-row" id="categoryRow">
+        <button class="category-chip active" type="button" data-category="Todos">
+          <span>Todo</span>
+        </button>
+        <button class="category-chip" type="button" data-category="Lectura">
+          <span>Leer</span>
+          Lectura
+        </button>
+        <button class="category-chip" type="button" data-category="Naturaleza">
+          <span>Eco</span>
+          Naturaleza
+        </button>
+        <button class="category-chip" type="button" data-category="Peliculas">
+          <span>Cine</span>
+          Pel&iacute;culas
+        </button>
+      </div>
+    </section>
+
+    <section aria-labelledby="popularTitle">
+      <div class="section-heading compact">
+        <h2 id="popularTitle">Planes populares</h2>
+        <button class="see-all" type="button" data-action="show-all">Ver todos</button>
+      </div>
+
+      <div class="plans-grid" id="plansGrid"></div>
+      <p class="empty-state" id="emptyState" hidden>No encontramos planes con ese filtro.</p>
+    </section>
+
+    <section class="profile-panel" id="profilePanel" hidden aria-labelledby="profileTitle">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">Tu cuenta</p>
+          <h2 id="profileTitle">Perfil y preferencias</h2>
+        </div>
+        <button class="see-all" type="button" data-action="home">Volver</button>
+      </div>
+
+      <form class="profile-card" id="profileForm">
+        <div class="profile-photo-row">
+          <label class="profile-photo" for="profilePhotoInput">
+            <img id="profilePhotoPreview" alt="" hidden />
+            <span id="profilePhotoInitial">U</span>
+          </label>
+          <div>
+            <h3 id="profileDisplayName">Usuario</h3>
+            <p>Tu foto se guarda solo en este navegador.</p>
+            <input id="profilePhotoInput" type="file" accept="image/*" hidden />
+            <button class="ghost-btn" type="button" data-action="pick-photo">Cambiar foto</button>
+          </div>
+        </div>
+
+        <div class="profile-grid">
+          <label>
+            Nombre real
+            <input id="profileFullName" type="text" autocomplete="name" />
+          </label>
+          <label>
+            Nombre de usuario
+            <input id="profileUsername" type="text" autocomplete="username" placeholder="@tu_usuario" />
+          </label>
+          <label>
+            Correo electrónico
+            <input id="profileEmail" type="email" autocomplete="email" />
+          </label>
+          <label>
+            Filtro de personalidad
+            <select id="profilePersonality">
+              <option value="tranquilo">Tranquilo: planes pequeños y calmados</option>
+              <option value="explorador">Explorador: lugares nuevos y naturaleza</option>
+              <option value="cultural">Cultural: lectura, cine y ciudad</option>
+              <option value="social">Social gradual: grupos medianos</option>
+            </select>
+          </label>
+        </div>
+
+        <button class="join-btn modal-submit" type="submit">Guardar cambios</button>
+      </form>
+
+      <article class="profile-card">
+        <div class="section-heading compact no-margin">
+          <h2>Actividades unidas</h2>
+        </div>
+        <div class="joined-list" id="joinedList"></div>
+      </article>
+
+      <article class="profile-card">
+        <div class="section-heading compact no-margin">
+          <h2>Legal</h2>
+        </div>
+        <div class="legal-actions">
+          <button class="ghost-btn" type="button" data-legal="terms">Términos de uso</button>
+          <button class="ghost-btn" type="button" data-legal="privacy">Política de privacidad</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegaci&oacute;n principal">
+    <button class="nav-item active" type="button" data-view="home" aria-label="Inicio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>
+    </button>
+    <button class="nav-item" type="button" data-view="explore" aria-label="Explorar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <button class="nav-create" type="button" data-action="open-create" aria-label="Crear plan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+    <button class="nav-item" type="button" data-view="messages" aria-label="Mensajes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg>
+    </button>
+    <button class="nav-item" type="button" data-view="profile" aria-label="Perfil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
+    </button>
+  </nav>
+
+  <dialog class="create-modal" id="createModal">
+    <form class="create-card" id="createPlanForm" method="dialog">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Nuevo plan</p>
+          <h2>Crear encuentro</h2>
+        </div>
+        <button class="modal-close" type="button" data-action="close-create" aria-label="Cerrar">×</button>
+      </div>
+      <label for="planName">
+        Nombre del plan
+        <input id="planName" type="text" placeholder="Ej: Caf&eacute; y lectura" required />
+      </label>
+      <label for="planPlace">
+        Lugar
+        <input id="planPlace" type="text" placeholder="Ej: Parque Caldas" required />
+      </label>
+      <label for="planCategory">
+        Categor&iacute;a
+        <select id="planCategory">
+          <option>Lectura</option>
+          <option>Naturaleza</option>
+          <option>Peliculas</option>
+        </select>
+      </label>
+      <label for="planTime">
+        Hora
+        <input id="planTime" type="text" placeholder="Ej: Hoy, 5:00 PM" required />
+      </label>
+      <label for="planDescription">
+        Descripción
+        <input id="planDescription" type="text" placeholder="Ej: Grupo pequeño y ambiente tranquilo" required />
+      </label>
+      <button class="join-btn modal-submit" type="submit">Guardar plan</button>
+    </form>
+  </dialog>
+
+  <dialog class="create-modal legal-modal" id="legalModal">
+    <article class="create-card">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow" id="legalEyebrow">Nexa</p>
+          <h2 id="legalTitle">Términos</h2>
+        </div>
+        <button class="modal-close" type="button" data-action="close-legal" aria-label="Cerrar">×</button>
+      </div>
+      <div class="legal-copy" id="legalCopy"></div>
+    </article>
+  </dialog>
+
+  <div class="app-toast" id="appToast" role="status" aria-live="polite"></div>
+  <script src="js/app.js?v=5"></script>
+</body>
+</html>
